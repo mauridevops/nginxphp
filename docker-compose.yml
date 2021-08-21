@@ -2,29 +2,29 @@ version: '3'
 services:
     
     nginx-proxy:
-    image: jwilder/nginx-proxy
-    restart: always
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-      - ./nginxproxy/certs:/etc/nginx/certs:ro
-      - ./nginxproxy/vhostd:/etc/nginx/vhost.d
-      - ./nginxproxy/html:/usr/share/nginx/html
-    labels:
-      - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
-
-  letsencrypt:
-    image: jrcs/letsencrypt-nginx-proxy-companion
-    restart: always
-    environment:
-      - NGINX_PROXY_CONTAINER=nginx-proxy
-    volumes:
-      - ./nginxproxy/certs:/etc/nginx/certs:rw
-      - ./nginxproxy/vhostd:/etc/nginx/vhost.d
-      - ./nginxproxy/html:/usr/share/nginx/html
-      - /var/run/docker.sock:/var/run/docker.sock:ro    
+        image: jwilder/nginx-proxy
+        restart: always
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - /var/run/docker.sock:/tmp/docker.sock:ro
+            - ./nginxproxy/certs:/etc/nginx/certs:ro
+            - ./nginxproxy/vhostd:/etc/nginx/vhost.d
+            - ./nginxproxy/html:/usr/share/nginx/html
+        labels:
+            - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
+            
+    letsencrypt:
+        image: jrcs/letsencrypt-nginx-proxy-companion
+        restart: always
+        environment:
+            - NGINX_PROXY_CONTAINER=nginx-proxy
+        volumes:
+            - ./nginxproxy/certs:/etc/nginx/certs:rw
+            - ./nginxproxy/vhostd:/etc/nginx/vhost.d
+            - ./nginxproxy/html:/usr/share/nginx/html
+            - /var/run/docker.sock:/var/run/docker.sock:ro    
     
     nginx:
         image: nginx:latest
@@ -44,17 +44,18 @@ services:
     
     php:
         image: php:7.4-fpm-alpine
-        ports:
-            - "9000:9000"
+        expose:
+            - "9000"
         volumes:
             - ./nginx/www:/var/www
+   
     mysql:
         image: linuxserver/mariadb:alpine
         tty: true
         container_name: phpdatabase
         restart: unless-stopped
-        ports:
-            - "3306:3306"
+        expose:
+            - "3306"
         volumes:
             - ./docker/mysql:/var/lib/mysql
             - ./docker/import:/docker-entrypoint-initdb.d
@@ -69,25 +70,31 @@ services:
     phpmyadmin:
         image: splattael/phpmyadmin:4.9.7
         container_name: phpmyadmin
-        ports:
-             - "8082:80"
+        expose:
+             - "80"
         environment:
             PMA_HOST: mysql
             PMA_PORT: 3306 
             PMA_ARBITRARY: 1
             MYSQL_ROOT_PASSWORD: rootpasswd
+            VIRTUAL_HOST: phpmyadmin.areaprop.com.ar,www.phpmyadmin.areaprop.com.ar
+            LETSENCRYPT_HOST: phpmyadmin.areaprop.com.ar,www.phpmyadmin.areaprop.com.ar
+            LETSENCRYPT_EMAIL: contacto@mauriciooyola.com
 
     filebrowser:
         image: hurlenko/filebrowser
         container_name: file-browser
         user: "${UID}:${GID}"
-        ports:
-            - 4443:8080
+        expose:
+            - "4443"
         volumes:
             - ./nginx:/data
             - ./filebrowsercfg:/config
         environment:
-            - FB_BASEURL=/filebrowser
+            FB_BASEURL: /filebrowser
+            VIRTUAL_HOST: archivos.areaprop.com.ar,www.archivos.areaprop.com.ar
+            LETSENCRYPT_HOST: archivos.areaprop.com.ar,www.archivos.areaprop.com.ar
+            LETSENCRYPT_EMAIL: contacto@mauriciooyola.com
         restart: always
         depends_on:
             - php  
