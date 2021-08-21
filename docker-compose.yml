@@ -43,6 +43,7 @@ services:
             - letsencrypt
     
     php:
+        image: mauriciooyola/php7.4:latest
         build: ./docker/images/php
         expose:
             - "9000"
