@@ -43,7 +43,7 @@ services:
             - letsencrypt
     
     php:
-        image: php:7.4-fpm-alpine
+        build: ./docker/images/php
         expose:
             - "9000"
         volumes:
