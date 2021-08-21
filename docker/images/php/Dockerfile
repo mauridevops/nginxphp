@@ -1,57 +1,47 @@
 # Main image
 FROM php:7.4-fpm-alpine
 
-# Install PHP extensions deps
-RUN apt-get update \
-    && apt-get install --no-install-recommends -y \
-        libfreetype6-dev \
-        libjpeg62-turbo-dev \
-        libmcrypt-dev \
-        libpng-dev \
-        zlib1g-dev \
-        libicu-dev \
-        g++ \
-        unixodbc-dev \
-        libxml2-dev \
-        libaio-dev \
-        libmemcached-dev \
-        freetds-dev \
-	libssl-dev \
-	openssl \
-        libgearman-dev \
-        libpq-dev
-  
- # Install PHP extensions
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-configure pdo_dblib --with-libdir=/lib/x86_64-linux-gnu \
-    && pecl install sqlsrv-4.1.6.1 \
-    && pecl install pdo_sqlsrv-4.1.6.1 \
-    && pecl install redis \
-    && pecl install memcached \
-    && docker-php-ext-install \
-            iconv \
-            mbstring \
-            intl \
-            mcrypt \
-            gd \
-            pgsql \
-            mysqli \
-            pdo_pgsql \
-            pdo_mysql \
-            pdo_dblib \
-            soap \
-            sockets \
-            zip \
-            pcntl \
-            ftp \
-            exif \
-    && docker-php-ext-enable \
-            sqlsrv \
-            pdo_sqlsrv \
-            redis \
-            memcached \
-            opcache \
-            gearman.so
+# Install dependencies
+RUN apk update && apk add --no-cache \
+    bash \
+    build-base shadow vim curl \
+    php7 \
+    php7-fpm \
+    php7-common \
+    php7-pdo \
+    php7-pdo_mysql \
+    php7-mysqli \
+    php7-mcrypt \
+    php7-mbstring \
+    php7-xml \
+    php7-openssl \
+    php7-json \
+    php7-phar \
+    php7-zip \
+    php7-gd \
+    php7-dom \
+    php7-session \
+    php7-zlib \
+    zip libzip-dev
+
+# Add and Enable PHP-PDO Extenstions
+RUN docker-php-ext-install pdo_mysql
+
+#RUN docker-php-ext-install pdo pdo_mysql
+#RUN docker-php-ext-enable pdo_mysql
+
+RUN docker-php-ext-install zip exif
+
+# Add gd extension
+RUN apk add --no-cache freetype libpng libjpeg-turbo freetype-dev libpng-dev libjpeg-turbo-dev && \
+  docker-php-ext-configure gd \
+    --with-gd \
+    --with-freetype-dir=/usr/include/ \
+    --with-png-dir=/usr/include/ \
+    --with-jpeg-dir=/usr/include/ && \
+  NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
+  docker-php-ext-install -j${NPROC} gd && \
+  apk del --no-cache freetype-dev libpng-dev libjpeg-turbo-dev
         
  
 # Workdir for php
