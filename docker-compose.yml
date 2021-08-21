@@ -48,7 +48,7 @@ services:
         expose:
             - "9000"
         volumes:
-            - ./nginx/php:/usr/local/etc/php #PHP.INI
+            - ./nginx/php:/usr/local/etc/php
             - ./nginx/www:/var/www
    
     mysql:
