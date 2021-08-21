@@ -5,7 +5,7 @@ ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/do
 
 # Install dependencies
 RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
-    install-php-extensions gd xdebug
+    install-php-extensions gd xdebug mysqli
         
 # Workdir for php
 WORKDIR /var/www
