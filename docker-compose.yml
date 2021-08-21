@@ -32,7 +32,7 @@ services:
             - "80"
         environment:
             VIRTUAL_HOST: areaprop.com.ar,www.areaprop.com.ar
-            LETSENCRYPT_HOST: areaprop.com.ar,www.areaprop.com.ar
+#            LETSENCRYPT_HOST: areaprop.com.ar,www.areaprop.com.ar
             LETSENCRYPT_EMAIL: contacto@mauriciooyola.com
         volumes:
             - ./nginx/www:/var/www
@@ -80,7 +80,7 @@ services:
             PMA_ARBITRARY: 1
             MYSQL_ROOT_PASSWORD: rootpasswd
             VIRTUAL_HOST: phpmyadmin.areaprop.com.ar,www.phpmyadmin.areaprop.com.ar
-            LETSENCRYPT_HOST: phpmyadmin.areaprop.com.ar,www.phpmyadmin.areaprop.com.ar
+#            LETSENCRYPT_HOST: phpmyadmin.areaprop.com.ar,www.phpmyadmin.areaprop.com.ar
             LETSENCRYPT_EMAIL: contacto@mauriciooyola.com
 
     filebrowser:
@@ -95,7 +95,7 @@ services:
         environment:
             FB_BASEURL: /filebrowser
             VIRTUAL_HOST: archivos.areaprop.com.ar,www.archivos.areaprop.com.ar
-            LETSENCRYPT_HOST: archivos.areaprop.com.ar,www.archivos.areaprop.com.ar
+#            LETSENCRYPT_HOST: archivos.areaprop.com.ar,www.archivos.areaprop.com.ar
             LETSENCRYPT_EMAIL: contacto@mauriciooyola.com
         restart: always
         depends_on:
