@@ -51,6 +51,7 @@ services:
             - ./nginx/www:/var/www
             - ./nginx/php/php.ini:/usr/local/etc/php/php.ini
             - ./nginx/php/sendmail/msmtprc:/etc/msmtprc
+            - ./nginx/php/sendmail/msmtp.log:/var/log/msmtp.log
     mysql:
         image: linuxserver/mariadb:alpine
         tty: true
