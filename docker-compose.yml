@@ -116,7 +116,7 @@ services:
             - LETSENCRYPT_HOST=mail.areaprop.com.ar
             - VIRTUAL_HOST=mail.areaprop.com.ar
             - HTTPS=OFF
-       volumes:
+        volumes:
             - /etc/localtime:/etc/localtime:ro
             - ./datamail/nginx/html/.well-known:/opt/www/.well-known
             - ./datamail/mailserver:/data
