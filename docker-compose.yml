@@ -78,8 +78,8 @@ services:
             PMA_PORT: 3306 
             PMA_ARBITRARY: 1
             MYSQL_ROOT_PASSWORD: rootpasswd
-            VIRTUAL_HOST: phpmyadmin.areaprop.com.ar,www.phpmyadmin.areaprop.com.ar
-#            LETSENCRYPT_HOST: phpmyadmin.areaprop.com.ar,www.phpmyadmin.areaprop.com.ar
+            VIRTUAL_HOST: phpadmin.areaprop.com.ar,www.phpadmin.areaprop.com.ar
+            LETSENCRYPT_HOST: phpadmin.areaprop.com.ar,www.phpadmin.areaprop.com.ar
             LETSENCRYPT_EMAIL: contacto@mauriciooyola.com
 
     filebrowser:
@@ -93,8 +93,8 @@ services:
             - ./filebrowsercfg:/config
         environment:
             FB_BASEURL: /filebrowser
-            VIRTUAL_HOST: archivos.areaprop.com.ar,www.archivos.areaprop.com.ar
-#            LETSENCRYPT_HOST: archivos.areaprop.com.ar,www.archivos.areaprop.com.ar
+            VIRTUAL_HOST: files.areaprop.com.ar,www.files.areaprop.com.ar
+            LETSENCRYPT_HOST: files.areaprop.com.ar,www.files.areaprop.com.ar
             LETSENCRYPT_EMAIL: contacto@mauriciooyola.com
         restart: always
         depends_on:
@@ -113,7 +113,7 @@ services:
             - "4190:4190"
     environment:
       - LETSENCRYPT_EMAIL=contacto@mauriciooyola.com
-#      - LETSENCRYPT_HOST=mail.areaprop.com.ar
+      - LETSENCRYPT_HOST=mail.areaprop.com.ar
       - VIRTUAL_HOST=mail.areaprop.com.ar
       - HTTPS=OFF
     volumes:
