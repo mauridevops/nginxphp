@@ -49,7 +49,8 @@ services:
             - "9000"
         volumes:
             - ./nginx/www:/var/www
-            - ./nginx/php/php.ini:/usr/local/etc/php/php.ini    
+            - ./nginx/php/php.ini:/usr/local/etc/php/php.ini
+            - ./nginx/php/sendmail/msmtprc:/etc/msmtprc
     mysql:
         image: linuxserver/mariadb:alpine
         tty: true
