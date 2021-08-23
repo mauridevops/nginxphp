@@ -122,6 +122,8 @@ services:
             - LETSENCRYPT_EMAIL=${SSLEMAIL}
             - LETSENCRYPT_HOST=${EMAILDOMAIN},${EMAILDOMAINWWW}
             - VIRTUAL_HOST=${EMAILDOMAIN},${EMAILDOMAINWWW}
+            - DISABLE_CLAMAV=TRUE
+            - DISABLE_RSPAMD=TRUE
             - HTTPS=OFF
         volumes:
             - /etc/localtime:/etc/localtime:ro
