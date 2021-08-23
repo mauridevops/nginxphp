@@ -98,7 +98,7 @@ services:
         environment:
             FB_BASEURL: /filebrowser
             VIRTUAL_HOST: ${FILESDOMAIN},${FILESDOMAINWWW}"
-            LETSENCRYPT_HOST: ${FILESDOMAINWWW},${FILESDOMAINWWW}
+            LETSENCRYPT_HOST: ${FILESDOMAIN},${FILESDOMAINWWW}
             LETSENCRYPT_EMAIL: ${SSLEMAIL}
         restart: always
         depends_on:
