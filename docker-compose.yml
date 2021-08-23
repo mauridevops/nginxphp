@@ -31,9 +31,9 @@ services:
         expose:
             - "80"
         environment:
-            VIRTUAL_HOST: areaprop.com.ar,www.areaprop.com.ar
-            LETSENCRYPT_HOST: areaprop.com.ar,www.areaprop.com.ar
-            LETSENCRYPT_EMAIL: contacto@mauriciooyola.com
+            VIRTUAL_HOST: ${WEBDOMAIN},${WEBDOMAINWWW}
+            LETSENCRYPT_HOST: ${WEBDOMAIN},${WEBDOMAINWWW}
+            LETSENCRYPT_EMAIL: ${SSLEMAIL}
         volumes:
             - ./nginx/www:/var/www
             - ./nginx/nginx.conf:/etc/nginx/nginx.conf
@@ -65,10 +65,10 @@ services:
         environment:
             PUID: 1000
             PGID: 1000
-            MYSQL_USER: root
-            MYSQL_PASSWORD: dbpasswd
-            MYSQL_DATABASE: database
-            MYSQL_ROOT_PASSWORD: rootpasswd
+            MYSQL_USER: ${MYSQLUSER}
+            MYSQL_PASSWORD: ${MYSQLDBPASSWD}
+            MYSQL_DATABASE: ${MYSQLDBNAME}
+            MYSQL_ROOT_PASSWORD: ${MYSQLROOTPASSWD}
     
     phpmyadmin:
         image: splattael/phpmyadmin:4.9.7
@@ -79,10 +79,10 @@ services:
             PMA_HOST: mysql
             PMA_PORT: 3306 
             PMA_ARBITRARY: 1
-            MYSQL_ROOT_PASSWORD: rootpasswd
-            VIRTUAL_HOST: phpadmin.areaprop.com.ar,www.phpadmin.areaprop.com.ar
-            LETSENCRYPT_HOST: phpadmin.areaprop.com.ar,www.phpadmin.areaprop.com.ar
-            LETSENCRYPT_EMAIL: contacto@mauriciooyola.com
+            MYSQL_ROOT_PASSWORD: ${MYSQLROOTPASSWD}
+            VIRTUAL_HOST: ${PHPDOMAIN},${PHPDOMAINWWW}
+            LETSENCRYPT_HOST: ${PHPDOMAIN},${PHPDOMAINWWW}
+            LETSENCRYPT_EMAIL: ${SSLEMAIL}
 
     filebrowser:
         image: hurlenko/filebrowser
@@ -95,9 +95,9 @@ services:
             - ./filebrowsercfg:/config
         environment:
             FB_BASEURL: /filebrowser
-            VIRTUAL_HOST: files.areaprop.com.ar,www.files.areaprop.com.ar
-            LETSENCRYPT_HOST: files.areaprop.com.ar,www.files.areaprop.com.ar
-            LETSENCRYPT_EMAIL: contacto@mauriciooyola.com
+            VIRTUAL_HOST: ${FILESDOMAIN},${FILESDOMAINWWW}"
+            LETSENCRYPT_HOST: ${FILESDOMAINWWW},${FILESDOMAINWWW}
+            LETSENCRYPT_EMAIL: ${SSLEMAIL}
         restart: always
         depends_on:
             - php  
@@ -114,9 +114,9 @@ services:
             - "995:995"
             - "4190:4190"
         environment:
-            - LETSENCRYPT_EMAIL=contacto@mauriciooyola.com
-            - LETSENCRYPT_HOST=mail.areaprop.com.ar
-            - VIRTUAL_HOST=mail.areaprop.com.ar
+            - LETSENCRYPT_EMAIL=${SSLEMAIL}
+            - LETSENCRYPT_HOST=${EMAILDOMAIN},${EMAILDOMAINWWW}
+            - VIRTUAL_HOST=${EMAILDOMAIN},${EMAILDOMAINWWW}
             - HTTPS=OFF
         volumes:
             - /etc/localtime:/etc/localtime:ro
