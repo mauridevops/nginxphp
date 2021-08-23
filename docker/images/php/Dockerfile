@@ -1,5 +1,5 @@
 # Main image
-FROM php:7.4-fpm-alpine
+FROM php:${PHPVERSION}-fpm-alpine
 
 RUN apk update
 RUN apk add msmtp
