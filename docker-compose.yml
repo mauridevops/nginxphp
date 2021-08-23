@@ -32,7 +32,7 @@ services:
             - "80"
         environment:
             VIRTUAL_HOST: areaprop.com.ar,www.areaprop.com.ar
-#            LETSENCRYPT_HOST: areaprop.com.ar,www.areaprop.com.ar
+            LETSENCRYPT_HOST: areaprop.com.ar,www.areaprop.com.ar
             LETSENCRYPT_EMAIL: contacto@mauriciooyola.com
         volumes:
             - ./nginx/www:/var/www
