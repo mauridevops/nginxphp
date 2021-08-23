@@ -104,7 +104,10 @@ services:
         depends_on:
             - php  
     mailserver:
-        image: analogic/poste.io:2
+    build:
+         context: ./docker/images/mailserver
+         dockerfile: Dockerfile
+        image: mauriciooyola/poste.io
         container_name: mailserver
         restart: unless-stopped
         ports:
