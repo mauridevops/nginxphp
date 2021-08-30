@@ -7,6 +7,8 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/* \
     && docker-php-ext-install zip \
     && apt-get update -y \
+    && apt-get install sendmail -y \
+    && apt-get update -y \
     && apt-get install msmtp -y
     
 COPY msmtprc /etc/msmtprc
