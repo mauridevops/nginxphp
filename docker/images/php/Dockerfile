@@ -16,14 +16,14 @@ RUN sed -i "s|ADMINEMAILSMTP|${ADMINEMAILSMTP} |g" /etc/msmtprc
 RUN sed -i "s|ADMINEMAILPASSWD|${ADMINEMAILPASSWD} |g" /etc/msmtprc
 RUN sed -i "s|ADMINEMAILSMTP|${ADMINEMAILSMTP} |g" /etc/msmtprc
 
-RUN touch /usr/local/etc/php/conf.d/mail.ini \
-    && echo "smtp_port = 587;" >> /usr/local/etc/php/conf.d/uploads.ini \
-    && echo "upload_max_filesize = 512M;" >> /usr/local/etc/php/conf.d/uploads.ini \
-    && echo "post_max_size = 256M;" >> /usr/local/etc/php/conf.d/uploads.ini \
-    && echo "max_execution_time	= -1;" >> /usr/local/etc/php/conf.d/uploads.ini \
-    && echo "memory_limit = 1024;" >> /usr/local/etc/php/conf.d/uploads.ini \
-    && echo "max_input_vars = 1024;" >> /usr/local/etc/php/conf.d/uploads.ini \
-    && echo "sendmail_path = /usr/bin/msmtp -t;" >> /usr/local/etc/php/conf.d/uploads.ini
+RUN touch /usr/local/etc/php/conf.d/custom.ini \
+    && echo "smtp_port = 587;" >> /usr/local/etc/php/conf.d/custom.ini \
+    && echo "upload_max_filesize = 512M;" >> /usr/local/etc/php/conf.d/custom.ini \
+    && echo "post_max_size = 256M;" >> /usr/local/etc/php/conf.d/custom.ini \
+    && echo "max_execution_time	= -1;" >> /usr/local/etc/php/conf.d/custom.ini \
+    && echo "memory_limit = 1024;" >> /usr/local/etc/php/conf.d/custom.ini \
+    && echo "max_input_vars = 1024;" >> /usr/local/etc/php/conf.d/custom.ini \
+    && echo "sendmail_path = /usr/bin/msmtp -t;" >> /usr/local/etc/php/conf.d/custom.ini
 
 
 RUN a2enmod rewrite
