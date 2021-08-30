@@ -35,7 +35,7 @@ services:
             - "80"
         volumes:
             - ./server/www:/var/www/html
-            - ./server/sendmail/msmtprc:/etc/msmtprc
+            - ./server/php/msmtprc:/etc/msmtprc
             - ./server/php/php.ini:/usr/local/etc/php/php.ini
         links:
             - mysql
