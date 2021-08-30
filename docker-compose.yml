@@ -84,7 +84,7 @@ services:
         expose:
             - "4443"
         volumes:
-            - ./server/www:/data
+            - ./server:/data
             - ./filebrowsercfg:/config
         environment:
             FB_BASEURL: /filebrowser
