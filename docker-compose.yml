@@ -37,7 +37,6 @@ services:
             - ./server/www:/var/www/html
             - ./server/sendmail/msmtprc:/etc/
             - ./server/php/php.ini:/usr/local/etc/php/php.ini
-
         links:
             - mysql
         environment:
