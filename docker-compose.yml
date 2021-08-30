@@ -30,7 +30,7 @@ services:
         build:
          context: ./docker/images/php
          dockerfile: Dockerfile
-        image: mauriciooyola/php7.4:gl
+        image: mauriciooyola/phpareaprop:latest
         expose: 
             - "80"
         volumes:
