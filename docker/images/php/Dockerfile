@@ -16,5 +16,9 @@ RUN sed -i "s|ADMINEMAILSMTP|${ADMINEMAILSMTP} |g" /etc/msmtprc
 RUN sed -i "s|ADMINEMAILPASSWD|${ADMINEMAILPASSWD} |g" /etc/msmtprc
 RUN sed -i "s|ADMINEMAILSMTP|${ADMINEMAILSMTP} |g" /etc/msmtprc
 
+RUN touch /usr/local/etc/php/conf.d/mail.ini \
+    && echo "smtp_port = 587;" >> /usr/local/etc/php/conf.d/uploads.ini \
+    && echo "sendmail_path = /usr/bin/msmtp -t;" >> /usr/local/etc/php/conf.d/uploads.ini
+
 
 RUN a2enmod rewrite
