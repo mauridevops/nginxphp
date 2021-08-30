@@ -41,7 +41,7 @@ services:
             - mysql
         environment:
         VIRTUAL_HOST: ${WEBDOMAIN},${WEBDOMAINWWW}"
-#        LETSENCRYPT_HOST: ${WEBDOMAIN},${WEBDOMAIN}
+        LETSENCRYPT_HOST: ${WEBDOMAIN},${WEBDOMAIN}
         LETSENCRYPT_EMAIL: ${SSLEMAIL}
         restart: always
             
@@ -74,7 +74,7 @@ services:
             PMA_ARBITRARY: 1
             MYSQL_ROOT_PASSWORD: ${MYSQLROOTPASSWD}
             VIRTUAL_HOST: ${PHPDOMAIN},${PHPDOMAINWWW}
-#            LETSENCRYPT_HOST: ${PHPDOMAIN},${PHPDOMAINWWW}
+            LETSENCRYPT_HOST: ${PHPDOMAIN},${PHPDOMAINWWW}
             LETSENCRYPT_EMAIL: ${SSLEMAIL}
 
     filebrowser:
@@ -89,7 +89,7 @@ services:
         environment:
             FB_BASEURL: /filebrowser
             VIRTUAL_HOST: ${FILESDOMAIN},${FILESDOMAINWWW}"
-#            LETSENCRYPT_HOST: ${FILESDOMAIN},${FILESDOMAINWWW}
+            LETSENCRYPT_HOST: ${FILESDOMAIN},${FILESDOMAINWWW}
             LETSENCRYPT_EMAIL: ${SSLEMAIL}
         restart: always
   
@@ -107,7 +107,7 @@ services:
             - "4190:4190"
         environment:
             - LETSENCRYPT_EMAIL=${SSLEMAIL}
-#            - LETSENCRYPT_HOST=${EMAILDOMAIN},${EMAILDOMAINWWW}
+            - LETSENCRYPT_HOST=${EMAILDOMAIN},${EMAILDOMAINWWW}
             - VIRTUAL_HOST=${EMAILDOMAIN},${EMAILDOMAINWWW}
             - DISABLE_CLAMAV=TRUE
             - DISABLE_RSPAMD=TRUE
