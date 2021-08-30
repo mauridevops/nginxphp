@@ -25,35 +25,25 @@ services:
             - ./nginxproxy/vhostd:/etc/nginx/vhost.d
             - ./nginxproxy/html:/usr/share/nginx/html
             - /var/run/docker.sock:/var/run/docker.sock:ro    
-    
-    nginx:
-        image: nginx:1.21.1-alpine
-        expose:
-            - "80"
-        environment:
-            VIRTUAL_HOST: ${WEBDOMAIN},${WEBDOMAINWWW}
-#            LETSENCRYPT_HOST: ${WEBDOMAIN},${WEBDOMAINWWW}
-            LETSENCRYPT_EMAIL: ${SSLEMAIL}
-        volumes:
-            - ./nginx/www:/var/www
-            - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-        depends_on:
-            - php
-            - nginx-proxy
-            - letsencrypt
-    
-    php:
+
+    www:
         build:
          context: ./docker/images/php
          dockerfile: Dockerfile
-        image: mauriciooyola/php7.4:latest
-        expose:
-            - "9000"
+        image: mauriciooyola/php7.4:gl
+        expose: 
+            - "80"
         volumes:
-            - ./nginx/www:/var/www
-            - ./nginx/php/php.ini:/usr/local/etc/php/php.ini
-            - ./nginx/php/sendmail/msmtprc:/etc/msmtprc
-            - ./nginx/php/sendmail/msmtp.log:/var/log/msmtp.log
+            - ./server/www:/var/www/html
+            - ./server/sendmail/msmtprc:/etc/msmtprc
+        links:
+            - mysql
+        environment:
+        VIRTUAL_HOST: ${WEBDOMAIN},${WEBDOMAINWWW}"
+#        LETSENCRYPT_HOST: ${WEBDOMAIN},${WEBDOMAIN}
+        LETSENCRYPT_EMAIL: ${SSLEMAIL}
+        restart: always
+            
     mysql:
         image: linuxserver/mariadb:alpine
         tty: true
@@ -93,7 +83,7 @@ services:
         expose:
             - "4443"
         volumes:
-            - ./nginx:/data
+            - ./server/www:/data
             - ./filebrowsercfg:/config
         environment:
             FB_BASEURL: /filebrowser
