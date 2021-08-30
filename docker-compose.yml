@@ -35,7 +35,7 @@ services:
             - "80"
         volumes:
             - ./server/www:/var/www/html
-            - ./server/sendmail/msmtprc:/etc/
+            - ./server/sendmail/msmtprc:/etc/msmtprc
             - ./server/php/php.ini:/usr/local/etc/php/php.ini
         links:
             - mysql
@@ -92,8 +92,7 @@ services:
 #            LETSENCRYPT_HOST: ${FILESDOMAIN},${FILESDOMAINWWW}
             LETSENCRYPT_EMAIL: ${SSLEMAIL}
         restart: always
-        depends_on:
-            - php  
+  
     mailserver:
         image: analogic/poste.io:2
         container_name: mailserver
